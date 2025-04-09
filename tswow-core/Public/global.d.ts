@@ -728,6 +728,20 @@ declare interface TSPlayer extends TSUnit, TSDBJsonProvider {
     CanParry() : bool
 
     /**
+     * Returns 'true' if the [Player] is in a contested or hostile zone, 'false' otherwise.
+     *
+     * @return bool isInHostileArea
+     */
+    IsInHostileArea() : bool
+
+    /**
+     * Returns 'true' if the [Player] is in a no-pvp area such as as sanctuary, 'false' otherwise.
+     *
+     * @return bool isInHostileArea
+     */
+    IsInNoPvPArea() : bool
+
+    /**
      * Returns the amount of available specs the [Player] currently has
      *
      * @return uint8 specCount
@@ -2262,6 +2276,13 @@ declare interface TSPlayer extends TSUnit, TSDBJsonProvider {
 
     GetFace(): TSNumber<uint8>;
     SetFace(face: uint8);
+
+    SetBaseRune(index: uint8, runeType: uint8): void;
+    RestoreBaseRune(index: uint8): void;
+    ConvertRune(index: uint8, runeType: uint8): void;
+    SetRuneCooldown(index: uint8, cooldown: uint32, casted: bool): void;
+    ResyncRunes(): void;
+
 }
 
 declare interface TSCorpse extends TSWorldObject {
@@ -5715,6 +5736,8 @@ declare interface TSWorldObject extends TSObject, TSWorldEntityProvider<TSWorldO
     GetCreature(guid: TSNumber<uint32> | TSGUID): TSCreature | undefined
     GetPlayer(guid: TSNumber<uint32> | TSGUID): TSPlayer | undefined
     GetFactionTemplate(): TSFactionTemplate
+    GetMapHeight(x: TSNumber<float>, y: TSNumber<float>, z: TSNumber<float>): TSNumber<float>
+    GetFloorZ(): TSNumber<float>;
 }
 
 declare interface TSWorldObjectCollection {
@@ -7720,6 +7743,12 @@ declare interface TSSpellInfo extends TSEntityProvider {
     GetEffect(index: SpellEffIndex): TSSpellEffectInfo
     GetTotem(index: uint32): TSNumber<uint32>
     GetTalentCost(): TSNumber<uint32>
+    IsRanked(): boolean
+    GetRank(): uint8
+    GetFirstRankSpell(): TSSpellInfo
+    GetLastRankSpell(): TSSpellInfo
+    GetNextRankSpell(): TSSpellInfo
+    GetPrevRankSpell(): TSSpellInfo
 }
 
 declare class TSSpellEffectInfo {

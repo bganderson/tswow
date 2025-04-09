@@ -671,6 +671,16 @@ bool TSPlayer::CanParry()
     return player->CanParry();
 }
 
+bool TSPlayer::IsInHostileArea()
+{
+    return player->pvpInfo.IsInHostileArea;
+}
+
+bool TSPlayer::IsInNoPvPArea()
+{
+    return player->pvpInfo.IsInNoPvPArea;
+}
+
 /*int TSPlayer::HasReceivedQuestReward(lua_State* L, Player* player)
 {
     return player->IsQuestRewarded(entry);
@@ -4150,4 +4160,31 @@ void TSPlayer::LSendShowMailBox0(TSGUID guid)
 void TSPlayer::LSendShowMailBox1(TSNumber<uint32> guid)
 {
     return SendShowMailBox(guid);
+}
+
+void TSPlayer::SetBaseRune(uint8 index, uint8 runeType)
+{
+    RuneType tcRuneType = static_cast<RuneType>(runeType);
+    player->SetBaseRune(index, tcRuneType);
+}
+
+void TSPlayer::RestoreBaseRune(uint8 index)
+{
+    player->RestoreBaseRune(index);
+}
+
+void TSPlayer::ConvertRune(uint8 index, uint8 runeType)
+{
+    RuneType tcRuneType = static_cast<RuneType>(runeType);
+    player->ConvertRune(index, tcRuneType);
+}
+
+void TSPlayer::SetRuneCooldown(uint8 index, uint32 cooldown, bool casted)
+{
+    player->SetRuneCooldown(index, cooldown, casted);
+}
+
+void TSPlayer::ResyncRunes()
+{
+    player->ResyncRunes();
 }

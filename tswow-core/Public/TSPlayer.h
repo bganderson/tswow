@@ -91,6 +91,8 @@ public:
 	bool InBG();
 	bool CanBlock();
 	bool CanParry();
+	bool IsInHostileArea();
+	bool IsInNoPvPArea();    
 	TSNumber<uint8> GetSpecsCount(uint32 entry, uint32 mapid, uint32 zone);
 	TSNumber<uint32> GetActiveSpec();
 	TSNumber<uint32> GetPhaseMaskForSpawn();
@@ -360,6 +362,12 @@ public:
 	void RemoveMail(uint32 id);
 
 	TSOutfit GetOutfitCopy(uint32_t settings = Outfit::EVERYTHING, int32_t race = -1, int32_t gender = -1);
+
+	void SetBaseRune(uint8 index, uint8 runeType);
+	void RestoreBaseRune(uint8 index);
+	void ConvertRune(uint8 index, uint8 runeType);
+	void SetRuneCooldown(uint8 index, uint32 cooldown, bool casted);
+	void ResyncRunes();
 
 private:
 		TSLua::Dictionary<TSNumber<uint32>, TSPlayerSpell> LGetSpellMap();
